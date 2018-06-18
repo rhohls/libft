@@ -6,7 +6,7 @@
 #    By: rhohls <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/01 07:07:02 by rhohls            #+#    #+#              #
-#    Updated: 2018/06/04 08:01:22 by rhohls           ###   ########.fr        #
+#    Updated: 2018/06/18 08:42:58 by rhohls           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ FILES = ft_atoi.c		\
 		ft_memdel.c		\
 		ft_memmove.c	\
 		ft_memset.c		\
+		ft_nextdig.c	\
 		ft_power.c		\
 		ft_putchar.c	\
 		ft_putchar_fd.c	\
@@ -57,6 +58,7 @@ FILES = ft_atoi.c		\
 		ft_striter.c	\
 		ft_striteri.c	\
 		ft_strjoin.c	\
+		ft_strjoinfree.c	\
 		ft_strlcat.c	\
 		ft_strlen.c		\
 		ft_strmap.c		\
