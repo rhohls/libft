@@ -6,11 +6,12 @@
 /*   By: rhohls <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 08:08:59 by rhohls            #+#    #+#             */
-/*   Updated: 2018/06/18 08:10:00 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/06/18 10:54:27 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdlib.h>
 
 char	*ft_strjoinfree(char *s1, char const *s2)
 {
