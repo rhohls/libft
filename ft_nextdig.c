@@ -1,22 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   ft_nextdig.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhohls <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/29 13:55:39 by rhohls            #+#    #+#             */
-/*   Updated: 2018/06/18 08:07:44 by rhohls           ###   ########.fr       */
+/*   Created: 2018/06/16 11:51:35 by rhohls            #+#    #+#             */
+/*   Updated: 2018/06/16 12:05:41 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd(t_list **alst, t_list *newlst)
+int	ft_nextdig(char *str)
 {
-	if (alst && newlst)
-	{
-		newlst->next = *alst;
-		*alst = newlst;
-	}
+	int i;
+	i = 0;
+
+	while (str[i] && ft_isdigit(str[i]))
+		i++;
+	while (str[i] && !ft_isdigit(str[i]))
+		i++;
+	return (i);
 }

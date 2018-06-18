@@ -6,7 +6,7 @@
 /*   By: rhohls <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 11:28:36 by rhohls            #+#    #+#             */
-/*   Updated: 2018/06/07 11:42:53 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/06/18 08:10:38 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void				ft_putnbr_fd(int num, int fd);
 t_list				*ft_lstnew(void const *content, size_t content_size);
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
-void				ft_lstadd(t_list **alst, t_list *new);
+void				ft_lstadd(t_list **alst, t_list *newlst);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 
@@ -91,5 +91,6 @@ int					ft_int_len_neg(int num, int *neg);
 int					ft_strcmp_simple(const char *s1, const char *s2);
 int					ft_strncmp_simple(const char *s1, const char *s2,
 										size_t len);
-
+int					ft_nextdig(char *str);
+char				*ft_strjoinfree(char *s1, char const *s2);
 #endif

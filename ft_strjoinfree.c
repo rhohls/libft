@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   ft_strjoinfree.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhohls <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/29 13:55:39 by rhohls            #+#    #+#             */
-/*   Updated: 2018/06/18 08:07:44 by rhohls           ###   ########.fr       */
+/*   Created: 2018/06/18 08:08:59 by rhohls            #+#    #+#             */
+/*   Updated: 2018/06/18 08:10:00 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd(t_list **alst, t_list *newlst)
+char	*ft_strjoinfree(char *s1, char const *s2)
 {
-	if (alst && newlst)
-	{
-		newlst->next = *alst;
-		*alst = newlst;
-	}
+	char *str_new;
+
+	if (s1 == NULL || s2 == NULL)
+		return (0);
+	if (!(str_new = ft_strnew((size_t)(ft_strlen((char *)s1)
+					+ ft_strlen((char *)s2) + 1))))
+		return (NULL);
+	ft_strcpy(str_new, (char *)s1);
+	ft_strcpy((str_new + ft_strlen((char *)s1)), (char *)s2);
+	free(&(*s1));
+	return (str_new);
 }
