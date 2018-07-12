@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_stackqueue.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhohls <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/04 07:19:30 by rhohls            #+#    #+#             */
-/*   Updated: 2018/07/10 07:15:21 by rhohls           ###   ########.fr       */
+/*   Created: 2018/07/12 15:05:06 by rhohls            #+#    #+#             */
+/*   Updated: 2018/07/12 15:05:08 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "../includes/libft.h"
 
-# define BUFF_SIZE 50
-# define FD content_size
-# define STRING content
-
-int					get_next_line(const int fd, char **line);
-
-typedef struct		s_gnl
+void ft_stackqueue(t_stack *stack, t_list *new_node)
 {
-	char			*string;
-	int				fd;
-	struct s_gnl	*next;
-}					t_gnl;
-#endif
+    t_list *temp;
+
+    if (!(stack->start))
+        stack->start = new_node;
+    temp = stack->start;
+    while(temp->next)
+        temp = temp->next;
+    temp->next = new_node;
+    stack->length++;
+}

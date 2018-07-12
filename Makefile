@@ -15,7 +15,10 @@ NAME = libft.a
 SRCS = ./srcs/
 HEAD = -I./includes/
 
-FILES = $(SRCS)get_next_line.c	\
+FILES = $(SRCS)ft_stackpop.c	\
+		$(SRCS)ft_stackpush.c	\
+		$(SRCS)ft_stackqueue.c	\
+		$(SRCS)get_next_line.c	\
 		$(SRCS)ft_atoi.c		\
 		$(SRCS)ft_bzero.c		\
 		$(SRCS)ft_int_len.c	\

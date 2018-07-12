@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_stackpush.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rhohls <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/04 07:19:30 by rhohls            #+#    #+#             */
-/*   Updated: 2018/07/10 07:15:21 by rhohls           ###   ########.fr       */
+/*   Created: 2018/07/12 13:50:07 by rhohls            #+#    #+#             */
+/*   Updated: 2018/07/12 13:50:08 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "../includes/libft.h"
 
-# define BUFF_SIZE 50
-# define FD content_size
-# define STRING content
-
-int					get_next_line(const int fd, char **line);
-
-typedef struct		s_gnl
+void ft_stackpush(t_stack *stack, t_list *new_node)
 {
-	char			*string;
-	int				fd;
-	struct s_gnl	*next;
-}					t_gnl;
-#endif
+    if (stack && new_node)
+    {
+        new_node->next = stack->start;
+        stack->start = new_node;
+        stack->length++;
+    }
+}
