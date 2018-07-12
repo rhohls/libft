@@ -6,7 +6,7 @@
 /*   By: rhohls <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/07 12:21:45 by rhohls            #+#    #+#             */
-/*   Updated: 2018/06/19 11:19:00 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/07/10 07:56:28 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,119 +16,87 @@
 
 #include <stdio.h>
 
-/*
-** str iso: returns new string from str until char c
-** then removes that from original using memmove
-** BASICALLY str sub without malloc
-*/
-
-static char			*ft_striso(char *str, char c)
+static char		*line_and_adjust_str(char *str, t_list *curr_node)
 {
-	size_t			i;
-	size_t			len;
-	size_t			leni;
-	char			*ret;
+	int		i;
+	int		len;
+	char	*ret;
+	char	*temp;
 
-	len = ft_strlen(str);
 	i = 0;
-	while (str[i])
-	{
-		if (str[i] == c)
-			break ;
+	len = ft_strlen(str);
+	while (str[i] && str[i] != '\n')
 		i++;
-	}
 	ret = ft_strsub(str, 0, i);
-	if (c == '\0')
-		i--;
-	leni = len - i;
-	ft_memmove(str, (str + (i + 1)), leni);
-	ft_bzero((str + leni), i);
+	if (!str[i] || (str[i] && !str[i + 1]))
+	{
+		ft_strdel(&str);
+		curr_node->STRING = str;
+		return (ret);
+	}
+	temp = str;
+	str = ft_strdup(str + i + 1);
+	free(temp);
+	curr_node->STRING = str;
 	return (ret);
 }
 
-static t_gnl		*ft_lstnew_gnl(int fd)
+static t_list	*find_fd_str(const int fd, t_list **list)
 {
-	t_gnl			*new;
+	t_list		*curr_node;
 
-	if (!(new = (t_gnl*)ft_memalloc(sizeof(t_gnl))))
-		return (NULL);
-	new->string = ft_memalloc(1);
-	new->fd = fd;
-	return (new);
+	curr_node = *list;
+	while (curr_node)
+	{
+		if ((int)curr_node->FD == fd)
+			return (curr_node);
+		curr_node = curr_node->next;
+	}
+	curr_node = ft_lstnew(0, fd);
+	curr_node->STRING = ft_strnew(1);
+	curr_node->FD = fd;
+	ft_lstadd(list, curr_node);
+	return (curr_node);
 }
 
-static t_gnl		*find_fd(t_gnl **listhold, int fd, t_gnl *lstcur)
+int				gnl_read(const int fd, char **str)
 {
-	t_gnl			*start;
+	int		read_ret;
+	char	buffstr[BUFF_SIZE + 1];
 
-	start = *listhold;
-	while (*listhold)
+	while (!(ft_strchr(*str, '\n')))
 	{
-		if ((*listhold)->fd == fd)
-		{
-			lstcur = *listhold;
-			break ;
-		}
-		if ((*listhold)->next)
-			*listhold = (*listhold)->next;
-		else
-			break ;
-	}
-	if (!lstcur)
-	{
-		lstcur = ft_lstnew_gnl(fd);
-		if (!(*listhold))
-			*listhold = lstcur;
-		else
-			(*listhold)->next = lstcur;
-	}
-	*listhold = (start != NULL) ? start : *listhold;
-	return (lstcur);
-}
-
-static int			gnl_ret(t_gnl *lstcur, char **line, int fd, char *strhold)
-{
-	char			buffstr[BUFF_SIZE + 1];
-	int				read_ret;
-	char			c;
-
-	while (TRUE)
-	{
-		ft_bzero(buffstr, (size_t)(BUFF_SIZE + 1));
-		if ((read_ret = read(fd, buffstr, BUFF_SIZE)) == -1)
+		read_ret = read(fd, buffstr, BUFF_SIZE);
+		if (read_ret == -1)
 			return (-1);
-		strhold = ft_strjoinfree(strhold, buffstr);
-		if (read_ret == 0 && ft_strlen(strhold) == 0)
+		buffstr[read_ret] = '\0';
+		*str = ft_strjoinfree(*str, buffstr);
+		if (read_ret == 0)
 		{
-			*line = ft_strdup("\0");
-			return (0);
-		}
-		if (read_ret == 0 || ft_strchr(strhold, '\n'))
-		{
-			c = (read_ret == 0) ? '\0' : '\n';
-			*line = ft_striso(strhold, c);
-			lstcur->string = strhold;
-			return (1);
+			if (**str == '\0')
+				return (0);
+			break ;
 		}
 	}
+	return (1);
 }
 
-int					get_next_line(const int fd, char **line)
+int				get_next_line(const int fd, char **line)
 {
-	static t_gnl	*listhold;
-	t_gnl			*lstcur;
-	char			*strhold;
+	static t_list	*listhold;
+	t_list			*curr_node;
+	char			*str;
+	int				gnl_read_ret;
 
 	if (BUFF_SIZE <= 0 || !line || (fd < -1))
 		return (-1);
-	lstcur = NULL;
-	lstcur = find_fd(&listhold, fd, lstcur);
-	strhold = lstcur->string;
-	if (strhold && ft_strchr(strhold, '\n'))
-	{
-		*line = ft_striso(strhold, '\n');
-		lstcur->string = strhold;
-		return (1);
-	}
-	return (gnl_ret(lstcur, line, fd, strhold));
+	curr_node = find_fd_str(fd, &listhold);
+	str = curr_node->STRING;
+	if (!str)
+		str = ft_strnew(1);
+	gnl_read_ret = gnl_read(fd, &str);
+	if (gnl_read_ret != 1)
+		return (gnl_read_ret);
+	*line = line_and_adjust_str(str, curr_node);
+	return (1);
 }
