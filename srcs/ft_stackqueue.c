@@ -12,15 +12,20 @@
 
 #include "../includes/libft.h"
 
+#include <stdio.h>
 void ft_stackqueue(t_stack *stack, t_list *new_node)
 {
     t_list *temp;
 
     if (!(stack->start))
-        stack->start = new_node;
-    temp = stack->start;
-    while(temp->next)
-        temp = temp->next;
-    temp->next = new_node;
+		stack->start = new_node;
+	else
+	{
+		temp = stack->start;
+		while(temp->next)
+			temp = temp->next;
+		temp->next = new_node;
+	}
+	new_node->next = NULL;
     stack->length++;
 }
