@@ -31,10 +31,12 @@ t_list *ft_stackserve(t_stack *stack)
 		if (previous)
 			previous->next = NULL;
 		stack->length--;
+		if (stack->length == 0)
+			stack->start = NULL;	
 	}
 	else 
-		return (NULL)
-	return (node)
+		return (NULL);
+	return (node);
 }
 
 /*
