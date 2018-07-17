@@ -6,7 +6,7 @@
 /*   By: rhohls <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/07/16 14:25:35 by rhohls            #+#    #+#             */
-/*   Updated: 2018/07/16 15:14:06 by rhohls           ###   ########.fr       */
+/*   Updated: 2018/07/17 07:03:05 by rhohls           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	atoi_space(const char *str, int *neg)
 	return (i);
 }
 
-static int 	atoi_return(int neg, int i, int long ret, int num_dig)
+static int 	atoi_return(int neg, int long ret)
 {
 	if (neg)
 		ret *= (-1);
@@ -60,5 +60,5 @@ int			ft_atoi_long(const char *str)
 		ret += str[i] - 48;
 		i++;
 	}
-	return (atoi_return(neg, i, ret, num_dig));
+	return (atoi_return(neg, ret));
 }
