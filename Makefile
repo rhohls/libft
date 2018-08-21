@@ -6,7 +6,7 @@
 #    By: rhohls <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/06/01 07:07:02 by rhohls            #+#    #+#              #
-#    Updated: 2018/08/21 10:06:25 by rhohls           ###   ########.fr        #
+#    Updated: 2018/08/21 14:01:36 by rhohls           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,6 +108,7 @@ $(NAME): $(OBJ)
 	@echo "\x1b[32m"Made Library $@"\x1b[0m"
 
 $(OBJ_PATH)%.o: $(SRC_PATH)%.c
+	@mkdir -p $(OBJ_PATH)
 	@$(CC) -I$(INC_PATH) -o $@ -c $<
 	@echo Making "\x1b[35m"$@"\x1b[0m"
 
