@@ -14,7 +14,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
-void	do_print(va_list var_list, char *input, int index)
+static void	do_print(va_list var_list, char *input, int index)
 {
 	char		*str;
 	int			num;
@@ -31,7 +31,7 @@ void	do_print(va_list var_list, char *input, int index)
 	}
 }
 
-int		ft_printf(char *input, ...)
+int			ft_printf(char *input, ...)
 {
 	va_list	var_list;
 	int		index;
